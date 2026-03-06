@@ -1,0 +1,27 @@
+"""
+Initial data fixture for Site Settings
+Run with: python manage.py loaddata initial_data.json
+"""
+[
+  {
+    "model": "main.sitesettings",
+    "pk": 1,
+    "fields": {
+      "about_overview": "Shree Brijwasi Jatav Samaj Sewa Samiti is a dedicated non-governmental organization working towards the empowerment and upliftment of underprivileged communities. Through our various initiatives in education, healthcare, women empowerment, and community development, we strive to create lasting positive change in society.",
+      "mission_statement": "To empower underprivileged communities through education, healthcare, and sustainable development initiatives that create lasting positive change and self-reliance.",
+      "vision_statement": "A world where every individual has access to basic rights, quality education, healthcare, and opportunities to build a better future for themselves and their communities.",
+      "achievements_summary": "Over the years, we have successfully implemented numerous projects impacting thousands of lives across various sectors including education, healthcare, women empowerment, and community development.",
+      "total_beneficiaries": 5000,
+      "total_projects": 25,
+      "established_year": 2015,
+      "registration_number": "NGO/REG/2015/12345",
+      "homepage_hero_title": "Shree Brijwasi Jatav Samaj Sewa Samiti",
+      "homepage_hero_subtitle": "Journey of Empowerment and Impact",
+      "donation_appeal_text": "Your generous contribution helps us continue our work and expand our impact. Every donation, big or small, makes a real difference in someone's life. Join us in creating positive change.",
+      "volunteer_appeal_text": "Become part of our dedicated team of volunteers and help us create lasting change in communities. Your time, skills, and passion can make a real difference.",
+      "footer_about_text": "We are a non-profit organization dedicated to social empowerment and community service, working towards creating a better future for underprivileged communities.",
+      "meta_description": "Shree Brijwasi Jatav Samaj Sewa Samiti - NGO dedicated to social empowerment, education, healthcare, and community development",
+      "meta_keywords": "NGO, social service, community empowerment, education, healthcare, donations, volunteer, social work, India"
+    }
+  }
+]
