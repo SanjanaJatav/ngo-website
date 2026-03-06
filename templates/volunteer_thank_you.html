@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}Thank You - Volunteer Registration - {{ SITE_CONFIG.SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="page-hero" style="min-height: 200px;">
+    <div class="container d-flex align-items-center justify-content-center h-100">
+        <div class="text-center text-white">
+            <h1 class="display-5 mb-2">Thank You!</h1>
+            <p class="lead mb-0">Your volunteer application has been received</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-5">
+                        <!-- Success Icon -->
+                        <div class="text-center mb-4">
+                            <div style="background: linear-gradient(135deg, #FFD700 0%, #FDB913 100%); width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                <i class="fas fa-check-circle text-white" style="font-size: 3rem;"></i>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-center mb-4">Application Received!</h2>
+                        
+                        <div class="alert alert-info mb-4">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Next Steps:</strong> Our team will review your application and contact you within 2-3 business days.
+                        </div>
+                        
+                        <div class="content mb-5">
+                            <h5 class="mb-3">What happens next?</h5>
+                            <ol class="custom-list">
+                                <li><strong>Review:</strong> Our team will review your volunteer application</li>
+                                <li><strong>Confirmation:</strong> We'll send you an email with next steps</li>
+                                <li><strong>Onboarding:</strong> You'll be invited to our volunteer orientation</li>
+                                <li><strong>Get Started:</strong> Begin your journey of making impact!</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="bg-light p-4 rounded mb-5">
+                            <h5 class="mb-3">Questions?</h5>
+                            <p class="mb-2"><strong>Email:</strong> <a href="mailto:{{ SITE_CONFIG.CONTACT_EMAIL }}" class="text-decoration-none">{{ SITE_CONFIG.CONTACT_EMAIL }}</a></p>
+                            <p class="mb-0"><strong>Phone:</strong> <a href="tel:{{ SITE_CONFIG.CONTACT_PHONE }}" class="text-decoration-none">{{ SITE_CONFIG.CONTACT_PHONE }}</a></p>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'home' %}" class="btn btn-primary" style="background: linear-gradient(135deg, #FFD700 0%, #FDB913 100%); border: none; color: #1a1a1a; font-weight: 600;">
+                                <i class="fas fa-home me-2"></i> Back to Home
+                            </a>
+                            <a href="{% url 'our_work' %}" class="btn btn-outline-primary">
+                                <i class="fas fa-eye me-2"></i> View Our Projects
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stay Connected Section -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h3 class="mb-4">Stay Connected</h3>
+                <p class="lead mb-5">Follow us on social media to stay updated about volunteer opportunities and our latest initiatives</p>
+                
+                <div class="d-flex justify-content-center gap-3">
+                    {% if SITE_CONFIG.SOCIAL_MEDIA.facebook %}
+                    <a href="{{ SITE_CONFIG.SOCIAL_MEDIA.facebook }}" target="_blank" class="btn btn-light btn-lg" style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fab fa-facebook-f" style="font-size: 1.5rem; color: #1a1a1a;"></i>
+                    </a>
+                    {% endif %}
+                    
+                    {% if SITE_CONFIG.SOCIAL_MEDIA.twitter %}
+                    <a href="{{ SITE_CONFIG.SOCIAL_MEDIA.twitter }}" target="_blank" class="btn btn-light btn-lg" style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fab fa-twitter" style="font-size: 1.5rem; color: #1a1a1a;"></i>
+                    </a>
+                    {% endif %}
+                    
+                    {% if SITE_CONFIG.SOCIAL_MEDIA.instagram %}
+                    <a href="{{ SITE_CONFIG.SOCIAL_MEDIA.instagram }}" target="_blank" class="btn btn-light btn-lg" style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fab fa-instagram" style="font-size: 1.5rem; color: #1a1a1a;"></i>
+                    </a>
+                    {% endif %}
+                    
+                    {% if SITE_CONFIG.SOCIAL_MEDIA.youtube %}
+                    <a href="{{ SITE_CONFIG.SOCIAL_MEDIA.youtube }}" target="_blank" class="btn btn-light btn-lg" style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fab fa-youtube" style="font-size: 1.5rem; color: #1a1a1a;"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.custom-list {
+    list-style: none;
+    padding: 0;
+}
+
+.custom-list li {
+    padding: 0.75rem 0;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.custom-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+</style>
+{% endblock %}

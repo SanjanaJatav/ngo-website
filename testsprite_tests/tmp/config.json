@@ -1,0 +1,19 @@
+{
+  "status": "commited",
+  "type": "backend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:8000",
+  "backendAuthType": "public",
+  "executionArgs": {
+    "projectName": "ngo website",
+    "projectPath": "c:\\xampp\\htdocs\\ngo website",
+    "testIds": [],
+    "additionalInstruction": "",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-Jd5bEvqeMvs8K__y_uLBUOYW0RzeGMiqmcYsl39-NhALN9y4pGrOMkXXLMd5QiegLg51GGKKuIhr5x342S9_jvroPTgejcyokZmGgeYVWvC9t0igDNZ_ylkCZBNzlh4qldI"
+    }
+  },
+  "serverPort": 60507,
+  "proxy": "http://91ecd03a-8273-490e-b5d1-f71749a34893:fosrkOorg1ea3bxeQP0w4VFaAg5pENK7@tun.testsprite.com:8080"
+}

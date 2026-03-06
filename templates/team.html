@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Team - {{ SITE_CONFIG.SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container text-center text-white">
+        <h1 class="display-3 fw-bold mb-3">Our Team</h1>
+        <p class="lead mb-0">Meet the dedicated people driving our mission forward</p>
+    </div>
+</section>
+
+<!-- Leadership Section -->
+<section class="section">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5">Leadership</h2>
+        <div class="row g-4 justify-content-center">
+            {% for member in leadership %}
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="team-member-card text-center">
+                    <div class="team-avatar text-center mb-3">
+                        <div class="avatar-circle mx-auto" style="background: linear-gradient(135deg, #4B7FC9 0%, #6A9FD9 100%);">
+                            <span class="avatar-initials">{{ member.name|slice:":1" }}{{ member.name|slice:"-1" }}</span>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-2">{{ member.name }}</h5>
+                    <p class="text-primary small mb-2" style="font-size: 0.9rem;">{{ member.position }}</p>
+                    <p class="text-muted small" style="line-height: 1.5;">{{ member.bio|truncatewords:20 }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if not leadership %}
+        <div class="text-center py-5">
+            <i class="fas fa-users fa-3x text-muted mb-3"></i>
+            <p class="text-muted">Leadership team information coming soon.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Team Members Section -->
+<section class="section bg-light">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5">Team Members</h2>
+        <div class="row g-4 justify-content-center">
+            {% for member in team_members %}
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="team-member-card text-center">
+                    <div class="team-avatar text-center mb-3">
+                        <div class="avatar-circle-alt mx-auto" style="background: linear-gradient(135deg, #E8A0C5 0%, #F0A5D0 100%);">
+                            <span class="avatar-initials">{{ member.name|slice:":1" }}{{ member.name|slice:"-1" }}</span>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-2">{{ member.name }}</h5>
+                    <p class="text-primary small mb-2" style="font-size: 0.9rem;">{{ member.position }}</p>
+                    <p class="text-muted small" style="line-height: 1.5;">{{ member.bio|truncatewords:20 }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if not team_members %}
+        <div class="text-center py-5">
+            <i class="fas fa-users fa-3x text-muted mb-3"></i>
+            <p class="text-muted">Team member information coming soon.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="section">
+    <div class="container text-center">
+        <h2 class="display-6 fw-bold mb-4">Want to Join the Team?</h2>
+        <p class="lead mb-4 text-secondary mx-auto" style="max-width: 700px;">We are always looking for passionate
+            individuals who want to contribute their skills for social good.
+        </p>
+        <a href="{% url 'volunteer' %}" class="btn btn-primary px-5 py-3">Become a Volunteer</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .team-member-card {
+        transition: all 0.3s ease;
+    }
+    
+    .team-member-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .avatar-circle,
+    .avatar-circle-alt {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    
+    .avatar-initials {
+        color: white;
+        font-weight: 700;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+    }
+</style>
+{% endblock %}

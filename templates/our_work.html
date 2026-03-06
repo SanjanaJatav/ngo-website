@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Work - {{ SITE_CONFIG.SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <h1 class="display-4 mb-3">Our Work</h1>
+        <p class="lead mb-0">Explore our projects and initiatives making a difference</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <!-- Statistics Bar -->
+        <div class="row mb-5 g-4">
+            <div class="col-md-4">
+                <div class="card text-center border-0 shadow-hover">
+                    <div class="card-body py-4">
+                        <h3 class="text-gradient mb-1">{{ statistics.total_completed }}</h3>
+                        <p class="mb-0 text-muted fw-bold">Projects Completed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center border-0 shadow-hover">
+                    <div class="card-body py-4">
+                        <h3 class="text-gradient mb-1">{{ statistics.total_beneficiaries|default:0 }}</h3>
+                        <p class="mb-0 text-muted fw-bold">People Impacted</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center border-0 shadow-hover">
+                    <div class="card-body py-4">
+                        <h3 class="text-gradient mb-1">{{ statistics.ongoing_projects }}</h3>
+                        <p class="mb-0 text-muted fw-bold">Ongoing Projects</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter -->
+        <div class="mb-5">
+            <form method="get" class="row g-3 justify-content-center">
+                <div class="col-md-4">
+                    <select name="category" class="form-select" onchange="this.form.submit()">
+                        <option value="all" {% if selected_category == 'all' %}selected{% endif %}>All Categories</option>
+                        {% for value, label in categories %}
+                        <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select name="status" class="form-select" onchange="this.form.submit()">
+                        <option value="all" {% if selected_status == 'all' %}selected{% endif %}>All Status</option>
+                        <option value="ongoing" {% if selected_status == 'ongoing' %}selected{% endif %}>Ongoing</option>
+                        <option value="completed" {% if selected_status == 'completed' %}selected{% endif %}>Completed
+                        </option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-md-6 col-lg-4">
+                <div class="project-card">
+                    <div class="project-card-image">
+                        {% if project.featured_image %}
+                        <img src="{{ project.featured_image.url }}" alt="{{ project.title }}">
+                        {% else %}
+                        <div class="project-placeholder">
+                            <i class="fas fa-project-diagram fa-4x text-white"></i>
+                        </div>
+                        {% endif %}
+                        <div class="project-category">{{ project.get_category_display }}</div>
+                    </div>
+                    <div class="project-card-content">
+                        <div class="project-status {{ project.project_status }}">{{ project.get_project_status_display }}</div>
+                        <h4>{{ project.title }}</h4>
+                        <p class="text-muted small mb-2">
+                            <i class="fas fa-map-marker-alt me-1"></i> {{ project.location }}
+                        </p>
+                        <p class="text-muted small mb-2">
+                            <i class="fas fa-calendar me-1"></i> {{ project.start_date|date:"M Y" }}
+                        </p>
+                        {% if project.beneficiaries_count %}
+                        <p class="text-muted small mb-2">
+                            <i class="fas fa-users me-1"></i> {{ project.beneficiaries_count }} beneficiaries
+                        </p>
+                        {% endif %}
+                        <p class="text-muted">{{ project.short_description|truncatewords:15 }}</p>
+                        <a href="{{ project.get_absolute_url }}" class="btn btn-outline-primary btn-sm mt-2">
+                            View Details <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="fas fa-folder-open fa-4x text-muted mb-3"></i>
+                <p class="text-muted fs-5">No projects found matching your criteria.</p>
+                <a href="{% url 'our_work' %}" class="btn btn-outline-primary mt-2">View All Projects</a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <nav class="mt-5">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link"
+                        href="?page={{ page_obj.previous_page_number }}{% if selected_category != 'all' %}&category={{ selected_category }}{% endif %}{% if selected_status != 'all' %}&status={{ selected_status }}{% endif %}">
+                        <i class="fas fa-chevron-left me-1"></i> Previous
+                    </a>
+                </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                    <a class="page-link"
+                        href="?page={{ num }}{% if selected_category != 'all' %}&category={{ selected_category }}{% endif %}{% if selected_status != 'all' %}&status={{ selected_status }}{% endif %}">{{
+                        num }}</a>
+                </li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link"
+                        href="?page={{ page_obj.next_page_number }}{% if selected_category != 'all' %}&category={{ selected_category }}{% endif %}{% if selected_status != 'all' %}&status={{ selected_status }}{% endif %}">
+                        Next <i class="fas fa-chevron-right ms-1"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

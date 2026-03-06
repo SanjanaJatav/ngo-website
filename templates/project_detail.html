@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.title }} - {{ SITE_CONFIG.SITE_NAME }}{% endblock %}
+
+{% block content %}
+<!-- Project Hero Section -->
+<section class="page-hero">
+    <div class="container text-center text-white">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <span class="badge px-3 py-2 rounded-pill mb-4" style="background: linear-gradient(135deg, #E8A0C5 0%, #F0A5D0 100%);">
+                    {{ project.get_category_display }}
+                </span>
+                <h1 class="display-3 fw-bold mb-3">{{ project.title }}</h1>
+                <p class="lead mb-4">{{ project.short_description }}</p>
+                <div class="project-meta d-flex justify-content-center gap-4 flex-wrap">
+                    <div class="meta-item">
+                        <i class="fas fa-calendar-alt me-2"></i>
+                        <span>{{ project.start_date|date:"M d, Y" }}{% if project.end_date %} - {{ project.end_date|date:"M d, Y" }}{% endif %}</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        <span>{{ project.location }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-tasks me-2"></i>
+                        <span>{{ project.get_project_status_display }}</span>
+                    </div>
+                    {% if project.beneficiaries_count %}
+                    <div class="meta-item">
+                        <i class="fas fa-users me-2"></i>
+                        <span>{{ project.beneficiaries_count }} Beneficiaries</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Details -->
+<section class="section">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <!-- Project Description -->
+                <div class="project-content mb-5">
+                    <h2 class="display-6 fw-bold mb-4">About This Project</h2>
+                    <div class="content-text">
+                        {{ project.description|linebreaks }}
+                    </div>
+                </div>
+
+                <!-- Project Gallery -->
+                {% if gallery_images %}
+                <div class="project-gallery mb-5">
+                    <h3 class="fw-bold mb-4">Project Gallery</h3>
+                    <div class="row g-3">
+                        {% for image in gallery_images %}
+                        <div class="col-md-4 col-sm-6">
+                            <div class="gallery-item">
+                                <img src="{{ image.image.url }}" alt="{{ image.caption|default:project.title }}"
+                                     class="img-fluid rounded-3 shadow-sm">
+                                {% if image.caption %}
+                                <div class="gallery-caption mt-2">
+                                    <small class="text-muted">{{ image.caption }}</small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Project Statistics -->
+                <div class="project-stats mb-5">
+                    <h3 class="fw-bold mb-4">Project Impact</h3>
+                    <div class="row g-4">
+                        {% if project.beneficiaries_count %}
+                        <div class="col-md-4">
+                            <div class="stat-card text-center p-4 bg-light rounded-3">
+                                <div class="stat-icon mb-3">
+                                    <i class="fas fa-users fa-2x text-primary"></i>
+                                </div>
+                                <h4 class="stat-number">{{ project.beneficiaries_count }}</h4>
+                                <p class="stat-label mb-0">People Benefited</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if project.budget %}
+                        <div class="col-md-4">
+                            <div class="stat-card text-center p-4 bg-light rounded-3">
+                                <div class="stat-icon mb-3">
+                                    <i class="fas fa-rupee-sign fa-2x text-success"></i>
+                                </div>
+                                <h4 class="stat-number">₹{{ project.budget }}</h4>
+                                <p class="stat-label mb-0">Project Budget</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="col-md-4">
+                            <div class="stat-card text-center p-4 bg-light rounded-3">
+                                <div class="stat-icon mb-3">
+                                    <i class="fas fa-eye fa-2x text-info"></i>
+                                </div>
+                                <h4 class="stat-number">{{ project.views_count }}</h4>
+                                <p class="stat-label mb-0">Page Views</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Partners -->
+                {% if project.partners %}
+                <div class="project-partners mb-5">
+                    <h3 class="fw-bold mb-4">Project Partners</h3>
+                    <div class="partners-list">
+                        <p class="text-secondary">{{ project.partners }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Project Status Card -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h5 class="card-title fw-bold mb-3">Project Status</h5>
+                        <div class="status-indicator mb-3">
+                            <span class="badge fs-6 px-3 py-2
+                                {% if project.project_status == 'completed' %}bg-success
+                                {% elif project.project_status == 'ongoing' %}bg-primary
+                                {% elif project.project_status == 'planning' %}bg-warning text-dark
+                                {% else %}bg-secondary{% endif %}">
+                                {{ project.get_project_status_display }}
+                            </span>
+                        </div>
+                        <div class="project-timeline">
+                            <div class="timeline-item mb-3">
+                                <div class="timeline-marker bg-primary"></div>
+                                <div class="timeline-content">
+                                    <small class="text-muted">Started</small>
+                                    <div class="fw-semibold">{{ project.start_date|date:"M d, Y" }}</div>
+                                </div>
+                            </div>
+                            {% if project.end_date %}
+                            <div class="timeline-item">
+                                <div class="timeline-marker
+                                    {% if project.project_status == 'completed' %}bg-success{% else %}bg-secondary{% endif %}">
+                                </div>
+                                <div class="timeline-content">
+                                    <small class="text-muted">
+                                        {% if project.project_status == 'completed' %}Completed{% else %}Expected{% endif %}
+                                    </small>
+                                    <div class="fw-semibold">{{ project.end_date|date:"M d, Y" }}</div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Share Project -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h5 class="card-title fw-bold mb-3">Share This Project</h5>
+                        <div class="share-buttons d-flex gap-2">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+                               target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ project.title|urlencode }}"
+                               target="_blank" class="btn btn-outline-info btn-sm">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://wa.me/?text={{ project.title|urlencode }}%20{{ request.build_absolute_uri }}"
+                               target="_blank" class="btn btn-outline-success btn-sm">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Projects -->
+                {% if related_projects %}
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <h5 class="card-title fw-bold mb-3">Related Projects</h5>
+                        <div class="related-projects">
+                            {% for related in related_projects %}
+                            <div class="related-item mb-3 pb-3 border-bottom">
+                                <h6 class="mb-2">
+                                    <a href="{{ related.get_absolute_url }}" class="text-decoration-none">
+                                        {{ related.title }}
+                                    </a>
+                                </h6>
+                                <small class="text-muted">{{ related.get_category_display }}</small>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="cta-card text-center p-5 bg-white rounded-4 shadow-lg">
+            <h2 class="display-6 fw-bold mb-3">Support Our Work</h2>
+            <p class="lead mb-4 text-muted">Help us continue making a difference in communities like this one.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="{% url 'donate' %}" class="btn btn-primary btn-lg px-4 py-3">
+                    <i class="fas fa-heart me-2"></i>Make a Donation
+                </a>
+                <a href="{% url 'volunteer' %}" class="btn btn-outline-primary btn-lg px-4 py-3">
+                    <i class="fas fa-hands-helping me-2"></i>Volunteer With Us
+                </a>
+                <a href="{% url 'our_work' %}" class="btn btn-outline-secondary btn-lg px-4 py-3">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Projects
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .project-hero {
+        background: linear-gradient(135deg, rgba(75, 127, 201, 0.9), rgba(106, 159, 217, 0.9)),
+                    url('{% if project.featured_image %}{{ project.featured_image.url }}{% else %}/static/images/default-project.jpg{% endif %}');
+        background-size: cover;
+        background-position: center;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.95rem;
+    }
+
+    .meta-item i {
+        color: #E8A0C5;
+    }
+
+    .gallery-item img {
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+
+    .gallery-item img:hover {
+        transform: scale(1.05);
+    }
+
+    .stat-card {
+        border: none;
+        transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .stat-icon {
+        opacity: 0.8;
+    }
+
+    .timeline-item {
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+    }
+
+    .timeline-marker {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 15px;
+        margin-top: 6px;
+        flex-shrink: 0;
+    }
+
+    .timeline-content small {
+        display: block;
+        font-size: 0.8rem;
+        margin-bottom: 2px;
+    }
+
+    .share-buttons .btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .related-item:last-child {
+        border-bottom: none !important;
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+</style>
+{% endblock %}

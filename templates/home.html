@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - {{ SITE_CONFIG.SITE_NAME }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center">
+    <div class="hero-slider" id="heroSlider">
+        {% for slide in slider_images %}
+        <div class="hero-slide {% if forloop.first %}active{% endif %}"
+            style="background-image: url('{{ slide.get_image_url }}');">
+            {% if slide.caption %}
+            <div class="slide-caption">
+                <h3>{{ slide.title }}</h3>
+                <p>{{ slide.caption }}</p>
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="hero-slide active" style="background-color: #333;"></div>
+        {% endfor %}
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <span class="badge px-3 py-2 rounded-pill mb-4 animated fadeInDown" style="background: linear-gradient(135deg, #E8A0C5 0%, #F0A5D0 100%); color: #ffffff; font-weight: 600;">
+                    Empowering Communities Since {{ site_settings.established_year|default:2020 }}
+                </span>
+                <h1 class="hero-title animated fadeInUp">{{ site_settings.homepage_hero_title|default:"Shree Brijwasi Jatav Samaj Sewa Samiti" }}</h1>
+                <p class="hero-subtitle animated fadeInUp delay-1s">
+                    {{ site_settings.homepage_hero_subtitle|default:"Journey of Empowerment and Impact" }}
+                </p>
+                <div class="hero-buttons animated fadeInUp delay-2s">
+                    <a href="{% url 'donate' %}" class="btn-hero btn-hero-primary">
+                        <i class="fas fa-heart me-2"></i> Donate Now
+                    </a>
+                    <a href="{% url 'volunteer' %}" class="btn-hero btn-hero-secondary">
+                        <i class="fas fa-hands-helping me-2"></i> Volunteer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slider-indicators">
+        {% for slide in slider_images %}
+        <div class="slider-indicator {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}"></div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Impact Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users text-white"></i></div>
+                    <h2 class="stat-number">{{ statistics.total_beneficiaries|default:1000 }}+</h2>
+                    <p class="stat-label">Lives Impacted</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-project-diagram text-white"></i></div>
+                    <h2 class="stat-number">{{ statistics.completed_projects|default:25 }}+</h2>
+                    <p class="stat-label">Projects Completed</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-calendar-alt text-white"></i></div>
+                    <h2 class="stat-number">{{ statistics.years_of_service|default:5 }}</h2>
+                    <p class="stat-label">Years of Service</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-hands-helping text-white"></i></div>
+                    <h2 class="stat-number">{{ statistics.total_volunteers|default:50 }}+</h2>
+                    <p class="stat-label">Active Volunteers</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission & Vision -->
+<section class="section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="/static/images/img 3.jpg"
+                        alt="About Us" class="img-fluid rounded-4 shadow-xl" style="border-radius: var(--radius-2xl);">
+                    <div class="position-absolute bottom-0 start-0 m-4 p-4 glass-panel d-none d-md-block"
+                        style="max-width: 250px;">
+                        <span class="d-block h3 fw-bold text-primary mb-1">100%</span>
+                        <span class="text-muted small fw-semibold">Transparency in all our operations and fund
+                            usage.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h6 class="text-primary fw-bold text-uppercase mb-3 tracking-wide">Our Core Purpose</h6>
+                <h2 class="display-5 fw-bold mb-4 line-height-tight">Making the World a Better Place for Everyone</h2>
+                <div class="mb-5">
+                    <div class="d-flex mb-4">
+                        <div class="feature-icon bg-primary-soft text-primary me-4">
+                            <i class="fas fa-bullseye fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-2">Our Mission</h4>
+                            <p class="text-secondary mb-0">{{ site_settings.mission_statement|default:"To empower under-privileged sections of society through collective action and sustainable development." }}</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="feature-icon bg-success-soft text-success me-4"
+                            style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                            <i class="fas fa-eye fa-2x"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-2">Our Vision</h4>
+                            <p class="text-secondary mb-0">{{ site_settings.vision_statement|default:"A society where every individual has equal opportunities to grow and lead a dignified life." }}</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url 'about_overview' %}" class="btn btn-outline-primary px-4 py-2 rounded-pill fw-bold"
+                    style="border-width: 2px;">Learn More About Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="section-title-wrapper text-center mb-5">
+            <h6 class="text-primary fw-bold text-uppercase mb-3">Our Work</h6>
+            <h2 class="section-title display-5 fw-bold">Recent Projects</h2>
+            <p class="section-subtitle mt-4">Explore our initiatives and projects that are
+                bringing positive change to the ground.</p>
+        </div>
+        <div class="row g-4 mt-2">
+            {% for project in featured_projects %}
+            <div class="col-md-4">
+                <div class="project-card h-100">
+                    <div class="project-card-image">
+                        {% if project.featured_image %}
+                        <img src="{{ project.featured_image.url }}" alt="{{ project.title }}">
+                        {% else %}
+                        <div class="project-placeholder">
+                            <i class="fas fa-project-diagram fa-3x text-white"></i>
+                        </div>
+                        {% endif %}
+                        <div class="project-category">{{ project.get_category_display }}</div>
+                    </div>
+                    <div class="project-card-content d-flex flex-column h-100">
+                        <h4 class="fw-bold mb-3">{{ project.title }}</h4>
+                        <p class="text-muted mb-4 flex-grow-1">{{ project.short_description|truncatewords:12 }}</p>
+                        <a href="{{ project.get_absolute_url }}"
+                            class="text-primary fw-bold text-decoration-none d-inline-flex align-items-center mt-auto">
+                            Read More <i class="fas fa-arrow-right ms-2 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted py-5 glass-panel">
+                <i class="fas fa-box-open fa-3x mb-3 text-light"></i>
+                <p class="fs-5 fw-medium">No featured projects at the moment. Please check back later.</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5 pt-3">
+            <a href="{% url 'our_work' %}"
+                class="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-lg shadow-hover">View All Projects</a>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-card glass-panel shadow-2xl border-0" style="background: rgba(255,255,255,0.05);">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="display-5 fw-bold mb-3 text-white">Become a Part of Change</h2>
+                    <p class="lead mb-5 opacity-75 text-white">{{ site_settings.donation_appeal_text|default:"Your small contribution can make a big difference in someone's life." }}</p>
+                    <div class="d-flex flex-wrap justify-content-center gap-4">
+                        <a href="{% url 'donate' %}"
+                            class="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg shadow-hover text-primary">Support
+                            Now</a>
+                        <a href="{% url 'volunteer' %}"
+                            class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold shadow-hover"
+                            style="border-width: 2px;">Volunteer With Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Blue & Purple Theme Colors */
+    .text-primary {
+        color: #4B7FC9 !important;
+    }
+    
+    a.text-primary:hover {
+        color: #6A9FD9 !important;
+    }
+    
+    .bg-primary-soft {
+        background: rgba(75, 127, 201, 0.1) !important;
+        color: #4B7FC9 !important;
+    }
+    
+    .section-title {
+        color: #4B7FC9;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,60 @@
+version: "2"
+type: backend
+tech_stack:
+  - python
+  - django
+  - sqlite
+  - html
+  - css
+features:
+  - name: Core Views
+    description: Public facing pages
+    files:
+      - main/urls.py
+      - main/views.py
+    endpoints:
+      - method: GET
+        path: /
+        description: Home page
+        auth_required: false
+      - method: GET
+        path: /about/overview/
+        description: About overview page
+        auth_required: false
+      - method: GET
+        path: /about/team/
+        description: Team page
+        auth_required: false
+      - method: GET
+        path: /our-work/
+        description: Our Work page
+        auth_required: false
+      - method: GET
+        path: /our-work/<slug>/
+        description: Our Work detail page
+        auth_required: false
+      - method: GET
+        path: /donate/
+        description: Donate page
+        auth_required: false
+      - method: GET
+        path: /donate/thank-you/
+        description: Donation thank you page
+        auth_required: false
+      - method: GET
+        path: /media/
+        description: Media page
+        auth_required: false
+      - method: GET
+        path: /contact/
+        description: Contact page
+        auth_required: false
+      - method: GET
+        path: /volunteer/
+        description: Volunteer page
+        auth_required: false
+      - method: GET
+        path: /volunteer/thank-you/
+        description: Volunteer thank you page
+        auth_required: false
+known_limitations: []

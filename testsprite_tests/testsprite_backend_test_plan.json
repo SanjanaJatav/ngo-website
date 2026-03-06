@@ -1,0 +1,52 @@
+[
+  {
+    "id": "TC001",
+    "title": "get_home_page_should_return_200_with_required_content",
+    "description": "Test GET / endpoint to ensure it returns HTTP 200 status with homepage HTML including slider_images, site_settings, featured_projects, and statistics."
+  },
+  {
+    "id": "TC002",
+    "title": "get_about_overview_should_return_200_with_mission_and_vision",
+    "description": "Test GET /about/overview/ endpoint to verify it returns HTTP 200 with about_overview, mission_statement, vision_statement, and years_of_operation."
+  },
+  {
+    "id": "TC003",
+    "title": "get_about_team_should_return_200_with_active_team_members",
+    "description": "Test GET /about/team/ endpoint to ensure it returns HTTP 200 with leadership and active team members ordered by display_order."
+  },
+  {
+    "id": "TC004",
+    "title": "get_our_work_listing_should_return_200_with_pagination_and_filters",
+    "description": "Test GET /our-work/ endpoint with query parameters for category, status, and page to verify it returns paginated projects, categories list, and statistics with HTTP 200."
+  },
+  {
+    "id": "TC005",
+    "title": "get_our_work_detail_should_return_200_and_increment_views",
+    "description": "Test GET /our-work/<slug>/ endpoint to verify it returns HTTP 200 with project details, gallery_images, related_projects, and increments views_count."
+  },
+  {
+    "id": "TC006",
+    "title": "get_donate_page_should_return_200_with_donation_form",
+    "description": "Test GET /donate/ endpoint to ensure it returns HTTP 200 with donation form, minimum_donation, suggested_amounts, and upi_apps."
+  },
+  {
+    "id": "TC007",
+    "title": "post_donate_should_create_pending_donation_and_return_201",
+    "description": "Test POST /donate/ with valid donor_name, donor_email, amount >= minimum_donation, and payment_app to verify it creates a pending donation record and returns HTTP 201 with transaction_reference and upi_deep_link."
+  },
+  {
+    "id": "TC008",
+    "title": "post_donate_should_return_400_for_invalid_amount_or_missing_fields",
+    "description": "Test POST /donate/ with amount less than minimum_donation or missing required fields to verify it returns HTTP 400 with validation error messages."
+  },
+  {
+    "id": "TC009",
+    "title": "post_volunteer_registration_should_create_pending_record_and_send_emails",
+    "description": "Test POST /volunteer/ with valid name, unique email, phone, skills, preferred_area, and terms_accepted to verify it creates a pending volunteer record, returns HTTP 201 with volunteer id and status, and queues welcome and admin notification emails."
+  },
+  {
+    "id": "TC010",
+    "title": "post_volunteer_registration_should_return_409_for_duplicate_email",
+    "description": "Test POST /volunteer/ with an email already registered (pending or approved) to verify it returns HTTP 409 Conflict with message 'email already registered'."
+  }
+]

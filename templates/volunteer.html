@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+
+{% block title %}Volunteer - {{ SITE_CONFIG.SITE_NAME }}{% endblock %}
+
+{% block content %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <h1 class="display-4 mb-3">Join Our Mission</h1>
+        <p class="lead mb-0">Make a difference by volunteering with us</p>
+    </div>
+</section>
+
+<!-- Volunteer Introduction -->
+<section class="section">
+    <div class="container">
+        <div class="row g-4 mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="text-center mb-5">
+                    <h2 class="h3 mb-3">Why Volunteer With Us?</h2>
+                    <p class="lead text-muted">Join hundreds of passionate volunteers making real impact in our community</p>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-md-4 text-center">
+                        <div class="feature-icon mb-3" style="background: linear-gradient(135deg, #4B7FC9 0%, #6A9FD9 100%); width: 70px; height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                            <i class="fas fa-heart text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5 class="mb-2">Make Impact</h5>
+                        <p class="small text-muted">Directly help communities in need through meaningful work</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="feature-icon mb-3" style="background: linear-gradient(135deg, #4ECDC4 0%, #5EDDD5 100%); width: 70px; height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                            <i class="fas fa-graduation-cap text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5 class="mb-2">Learn & Grow</h5>
+                        <p class="small text-muted">Develop new skills and experience through volunteering</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="feature-icon mb-3" style="background: linear-gradient(135deg, #E8A0C5 0%, #F0A5D0 100%); width: 70px; height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                            <i class="fas fa-users text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5 class="mb-2">Build Network</h5>
+                        <p class="small text-muted">Connect with like-minded people and expand your circle</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Volunteer Registration Form -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-5">
+                        <h3 class="card-title mb-4 text-center">
+                            <i class="fas fa-clipboard-user text-primary me-2"></i> Registration Form
+                        </h3>
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <form method="post" action="{% url 'volunteer' %}" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            
+                            <!-- Personal Information -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label fw-600">Full Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control py-2" id="name" name="name" placeholder="Enter your full name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label fw-600">Email Address <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control py-2" id="email" name="email" placeholder="your@email.com" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label fw-600">Phone Number <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control py-2" id="phone" name="phone" placeholder="+91 98765 43210" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="age" class="form-label fw-600">Age (Optional)</label>
+                                    <input type="number" class="form-control py-2" id="age" name="age" placeholder="Your age" min="18">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="address" class="form-label fw-600">Address (Optional)</label>
+                                <textarea class="form-control py-2" id="address" name="address" placeholder="Your residential address" rows="2"></textarea>
+                            </div>
+                            
+                            <!-- Volunteer Details -->
+                            <h6 class="fw-bold mt-4 mb-3">Volunteer Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="preferred_area" class="form-label fw-600">Preferred Area <span class="text-danger">*</span></label>
+                                    <select class="form-select py-2" id="preferred_area" name="preferred_area" required>
+                                        <option selected disabled value="">Select your interest area...</option>
+                                        <option value="education">Education</option>
+                                        <option value="health">Health</option>
+                                        <option value="environment">Environment</option>
+                                        <option value="community">Community</option>
+                                        <option value="admin">Administration</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="availability" class="form-label fw-600">Availability <span class="text-danger">*</span></label>
+                                    <select class="form-select py-2" id="availability" name="availability" required>
+                                        <option selected disabled value="">Select your availability...</option>
+                                        <option value="weekdays">Weekdays</option>
+                                        <option value="weekends">Weekends</option>
+                                        <option value="flexible">Flexible</option>
+                                        <option value="specific_days">Specific Days</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="skills" class="form-label fw-600">Your Skills <span class="text-danger">*</span></label>
+                                <textarea class="form-control py-2" id="skills" name="skills" placeholder="Tell us about your skills and expertise (e.g., teaching, first aid, social media, event management)" rows="3" required></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="experience" class="form-label fw-600">Previous Experience (Optional)</label>
+                                <textarea class="form-control py-2" id="experience" name="experience" placeholder="Any previous volunteer or related experience" rows="2"></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="message" class="form-label fw-600">Why do you want to volunteer? (Optional)</label>
+                                <textarea class="form-control py-2" id="message" name="message" placeholder="Tell us your motivation for joining our team" rows="2"></textarea>
+                            </div>
+                            
+                            <!-- Emergency Contact -->
+                            <h6 class="fw-bold mt-4 mb-3">Emergency Contact</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="emergency_contact_name" class="form-label fw-600">Contact Name</label>
+                                    <input type="text" class="form-control py-2" id="emergency_contact_name" name="emergency_contact_name" placeholder="Contact person name">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="emergency_contact_phone" class="form-label fw-600">Contact Phone</label>
+                                    <input type="tel" class="form-control py-2" id="emergency_contact_phone" name="emergency_contact_phone" placeholder="Contact person phone">
+                                </div>
+                            </div>
+                            
+                            <!-- Newsletter -->
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter" checked>
+                                    <label class="form-check-label" for="newsletter">
+                                        I'd like to receive updates and volunteer opportunities
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold" style="background: linear-gradient(135deg, #4B7FC9 0%, #6A9FD9 100%); border: none; color: #ffffff; font-size: 1.1rem;">
+                                <i class="fas fa-check-circle me-2"></i> Submit Application
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Info Section -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <i class="fas fa-envelope text-warning" style="font-size: 2.5rem;"></i>
+                </div>
+                <h5 class="mb-2">Email</h5>
+                <p class="text-muted mb-0"><a href="mailto:{{ SITE_CONFIG.CONTACT_EMAIL }}" class="text-decoration-none">{{ SITE_CONFIG.CONTACT_EMAIL }}</a></p>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <i class="fas fa-phone text-warning" style="font-size: 2.5rem;"></i>
+                </div>
+                <h5 class="mb-2">Phone</h5>
+                <p class="text-muted mb-0"><a href="tel:{{ SITE_CONFIG.CONTACT_PHONE }}" class="text-decoration-none">{{ SITE_CONFIG.CONTACT_PHONE }}</a></p>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <i class="fas fa-map-marker-alt text-warning" style="font-size: 2.5rem;"></i>
+                </div>
+                <h5 class="mb-2">Location</h5>
+                <p class="text-muted mb-0">{{ SITE_CONFIG.CONTACT_ADDRESS }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.fw-600 {
+    font-weight: 600;
+}
+
+.form-check-input:checked {
+    background-color: #FFD700;
+    border-color: #FFD700;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #FFD700;
+    box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+}
+</style>
+{% endblock %}

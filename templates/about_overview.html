@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - {{ SITE_CONFIG.SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container text-center text-white">
+        <h1 class="display-3 fw-bold mb-3 animated fadeInDown">Who We Are</h1>
+        <p class="lead mb-0 animated fadeInUp">Dedicated to positive change and community empowerment</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="/static/images/img1.jpg"
+                        alt="About Us" class="img-fluid rounded-4 shadow-xl">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">Shree Brijwasi Jatav Samaj Sewa Samiti</h2>
+                <div class="mb-4 text-secondary fs-5">
+                    {{ site_settings.about_overview|default:"Shree Brijwasi Jatav Samaj Sewa Samiti is a non-governmental organization dedicated to the upliftment of the underprivileged sections of society. We focus on education, healthcare, and community empowerment." }}
+                </div>
+                <div class="achievements mt-5">
+                    <h4 class="fw-bold mb-3">Our Achievements</h4>
+                    <p class="text-secondary opacity-75">{{ site_settings.achievements_summary|default:"Over the years, we have successfully completed multiple projects, positively impacting many lives in our community." }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section bg-light">
+    <div class="container">
+        <div class="row justify-content-center g-4 text-center">
+            <div class="col-md-4">
+                <div class="mission-vision-card p-5 bg-white rounded-4 shadow-sm h-100 border-top-primary">
+                    <div class="icon-circle mx-auto mb-4" style="background: linear-gradient(135deg, #4B7FC9 0%, #6A9FD9 100%); color: white;">
+                        <i class="fas fa-bullseye fa-2x"></i>
+                    </div>
+                    <h3 class="fw-bold mb-3">Our Mission</h3>
+                    <p class="text-secondary mb-0">{{ site_settings.mission_statement|default:"To empower under-privileged sections of society through collective action and sustainable development." }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mission-vision-card p-5 bg-white rounded-4 shadow-sm h-100 border-top-primary">
+                    <div class="icon-circle mx-auto mb-4" style="background: linear-gradient(135deg, #E8A0C5 0%, #F0A5D0 100%); color: white;">
+                        <i class="fas fa-eye fa-2x"></i>
+                    </div>
+                    <h3 class="fw-bold mb-3">Our Vision</h3>
+                    <p class="text-secondary mb-0">{{ site_settings.vision_statement|default:"A society where every individual has equal opportunities to grow and lead a dignified life." }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mission-vision-card p-5 bg-white rounded-4 shadow-sm h-100 border-top-primary">
+                    <div class="icon-circle mx-auto mb-4" style="background: linear-gradient(135deg, #4ECDC4 0%, #5EDDD5 100%); color: white;">
+                        <i class="fas fa-hands-helping fa-2x"></i>
+                    </div>
+                    <h3 class="fw-bold mb-3">Our Core Values</h3>
+                    <p class="text-secondary mb-0">Integrity, Transparency, Commitment, and Inclusive Growth for all
+                        sections of society.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section py-5">
+    <div class="container">
+        <div class="cta-box p-5 rounded-4 shadow-xl text-center" style="background: linear-gradient(135deg, #4B7FC9 0%, #6A9FD9 100%); color: white;">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="display-6 fw-bold mb-3">Ready to Join Us?</h2>
+                    <p class="lead mb-4 opacity-75">Your support help us make a larger impact on the community.</p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="{% url 'donate' %}" class="btn btn-light btn-lg px-5 shadow-lg text-primary">Donate Now</a>
+                        <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg px-5">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
