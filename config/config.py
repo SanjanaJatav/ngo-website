@@ -118,5 +118,5 @@ if IS_LOCALHOST:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
     STATIC_ROOT = None  # Not needed for development
 else:
-    ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']  # Update with actual domain
+    ALLOWED_HOSTS = ['shreebrijwasijatavsamajsevasamiti.com', 'www.shreebrijwasijatavsamajsevasamiti.com']  # Update with actual domain
     STATIC_ROOT = '/home/username/public_html/static/'  # Update with actual path
