@@ -18,6 +18,6 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS
-        value: shreebrijwasijatavsamajsevasamiti.com,www.shreebrijwasijatavsamajsevasamiti.com,localhost,127.0.0.1
+        value: shree-brijwasi-ngo.onrender.com,shreebrijwasijatavsamajsevasamiti.com,www.shreebrijwasijatavsamajsevasamiti.com,localhost,127.0.0.1
       - key: CSRF_TRUSTED_ORIGINS
-        value: https://shreebrijwasijatavsamajsevasamiti.com,https://www.shreebrijwasijatavsamajsevasamiti.com
+        value: https://shree-brijwasi-ngo.onrender.com,https://shreebrijwasijatavsamajsevasamiti.com,https://www.shreebrijwasijatavsamajsevasamiti.com
