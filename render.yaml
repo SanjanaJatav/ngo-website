@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: shree-brijwasi-ngo
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn ngo_website.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.7
+      - key: DJANGO_SETTINGS_MODULE
+        value: ngo_website.settings_simple
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: shreebrijwasijatavsamajsevasamiti.com,www.shreebrijwasijatavsamajsevasamiti.com,localhost,127.0.0.1
+      - key: CSRF_TRUSTED_ORIGINS
+        value: https://shreebrijwasijatavsamajsevasamiti.com,https://www.shreebrijwasijatavsamajsevasamiti.com
